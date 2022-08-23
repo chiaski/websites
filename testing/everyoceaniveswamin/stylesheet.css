@@ -2,10 +2,23 @@
   box-sizing: border-box;
 }
 
+#info {
+  padding: 1em;
+  margin: 1em;
+  border: 1px solid #000;
+  text-align: center;
+}
+
 #ocean {
   border: 1px solid #000;
   margin: 1em;
   padding: 2em 1em;
+  max-height: calc(100vh - 100px);
+  max-width: 100%;
+  overflow: scroll;
+}
+#ocean #h {
+  width: 1400px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
