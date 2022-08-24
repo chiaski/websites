@@ -15,15 +15,24 @@
   padding: 2em 1em;
   max-height: calc(100vh - 100px);
   max-width: 100%;
-  overflow: scroll;
+  overflow: hidden;
+  counter-reset: x 0 y -1;
 }
 #ocean #h {
-  width: 1400px;
+  width: 1550px;
+  min-height: 1000px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
+#ocean #h .g {
+  counter-increment: x;
+}
+#ocean #h .g:nth-child(10n+1) {
+  counter-increment: y;
+}
 #ocean .g {
+  position: relative;
   border: 1px solid #000;
   display: inline-block;
   padding: 1em;
@@ -35,13 +44,19 @@
 }
 #ocean .g {
   color: rgba(0, 0, 0, 0);
-  cursor: pointer;
+}
+#ocean .g:after {
+  top: 25%;
+  left: 25%;
+  color: #000;
+  position: absolute;
+  content: counter(x) ", " counter(y);
 }
 #ocean .g:empty {
   border: 0;
 }
-#ocean .g:first-of-type {
-  margin-left: 0;
+#ocean .g:nth-child(10n+1) {
+  counter-set: x 0;
 }
 #ocean .g img {
   max-width: calc(100% + 2em);
