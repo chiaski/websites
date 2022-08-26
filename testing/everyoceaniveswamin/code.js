@@ -4,6 +4,27 @@
 
   });
 
+  // initialize
+
+
+  $(document).ready(function () {
+    console.log("ready!");
+
+    $d = $("#h");
+
+    //    $('#ocean').animate({
+    //      scrollTop: $d.offset().top + $d.height() / 2,
+    //      scrollLeft: $d.offset().left + $d.width() / 2
+    //    }, 1000);
+    $('#ocean').scroll(function () {
+      $('.linked').scrollTop($(this).scrollTop());
+    })
+
+    $("#ocean").scrollTop(500);
+    $("#ocean").scrollLeft(500);
+
+  });
+
 
   // scroll to overwrite
   jQuery.fn.scrollTo = function (elem) {
@@ -14,7 +35,7 @@
   // scroll window
   document.body.onkeyup = function (e) {
     var code = e.keyCode;
-    let walk = 10; // walk distance in pixels
+    let walk = 300; // walk distance in pixels
     let c = $("#ocean");
     let top = c.scrollTop();
     let left = c.scrollLeft();

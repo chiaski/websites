@@ -2,10 +2,19 @@
   box-sizing: border-box;
 }
 
+$bg: #efcee4;
+$pink: #dd68b0;
+$pink-lighter: rgba(221, 104, 176, 0.48);
+
+body {
+  background: $bg;
+  color: $pink;
+}
+
 #info {
   padding: 1em;
   margin: 1em;
-  border: 1px solid #000;
+  border: 1px solid $pink;
   text-align: center;
 }
 
@@ -20,25 +29,41 @@
 
   img {
     height: 100%;
-    max-width: 60px;
+    max-width: 30px;
   }
 
 }
 
+#g {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 80vh;
+  margin: 0 1em;
+}
+
+#tools {
+  border: 1px solid $pink;
+  height: 100%;
+  min-width: 250px;
+  flex-grow: 1;
+}
+
 #ocean {
   position: relative;
-  border: 1px solid #000;
-  margin: 1em;
-  max-height: calc(100vh - 100px);
-  max-width: 100%;
+  border: 1px solid $pink;
+  margin-left: 1em;
+  height: 100%;
+  flex-grow: 3;
   overflow: hidden;
   counter-reset: x 0 y -1;
   scroll-behavior: smooth;
   // counters
 
+
+  // PLACE
   #h {
     margin: 25vh 25vw;
-    width: 1550px;
+    width: 1350px;
     min-height: 1000px;
     padding: 1em;
     scroll-behavior: smooth;
@@ -58,12 +83,13 @@
 
   .g {
     position: relative;
-    border: 1px solid #000;
+    border: 1px solid $pink;
     display: inline-block;
     padding: 1em;
     text-align: center;
-    width: 150px;
-    height: 150px;
+    // SIZE
+    width: 125px;
+    height: 125px;
     margin-left: -1px;
     margin-top: -1px;
   }
@@ -75,7 +101,7 @@
   .g:after {
     top: 25%;
     left: 25%;
-    color: #000;
+    color: $pink;
     position: absolute;
     content: counter(x) ", "counter(y);
   }
@@ -97,4 +123,11 @@
     margin-left: -1em;
   }
 
+}
+
+
+
+// field 
+.g[highlight] {
+  background: $pink-lighter;
 }
