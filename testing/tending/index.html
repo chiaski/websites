@@ -3,7 +3,7 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>gardener</title>
+  <title>tending</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link rel="stylesheet" href="./stylesheet.css" type="text/css" />
   <meta charset="UTF-8" />
@@ -18,8 +18,33 @@
 
 
   <div id="g">
+
     <div id="tools">
-      <p>x</p>
+      <p>x to plant seed</p>
+      <hr>
+      <h3>clock</h3>
+      <p>day: <span class="day"></span></p>
+      <p>hour: <span class="hour"></span></p>
+
+      <h3>coins</h3>
+      <p>0 coins</p>
+
+      <hr>
+
+      <div id="store">
+        <h3>store</h3>
+        <div class="store-item" name="pinkflower">
+          <p>pink flower – free</p>
+          <button data-qty="1">buy</button>
+          <button data-qty="5">buy 5x</button>
+        </div>
+        <div class="store-item" name="pinkflower">
+          <p>tree – 10c</p>
+          <button data-qty="1">buy</button>
+          <button data-qty="5">buy 5x</button>
+        </div>
+      </div>
+
     </div>
 
 
