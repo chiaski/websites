@@ -1,25 +1,3 @@
-// HELPERS
-function pick(items) {
-  return items[~~(items.length * Math.random())];
-}
-
-const g = {
-  HOUR: 500, // how many ms = 1 hour
-  WORLD: "#h",
-  GRID_X: 10,
-  GRID_Y: 10
-}
-
-
-// growth
-var o = {
-
-  flower_growth: [".", ",", "⚘", "ꕤ"],
-  flower_text: ["germinating", "growing", "shivering", "blooming", "flower"],
-  flower_duration: [1000, 5000, 1000, 4000],
-  flower: ["❊", "❋", "❊", "❁", "❀", "✿", "✾", "✽"]
-}
-
 // reveal
 
 
@@ -93,22 +71,52 @@ const game = {
     // create map
     for (let z = 0; z < b; z++) {
       for (let i = 0; i < a; i++) {
-        $(g.WORLD).append("<div class='g' x=" + i + " y=" + z + "></div>");
+        $(g.WORLD).append("<div class='g' x=" + i + " y=" + z + " title='x or click to plant' type='soil'></div>");
       }
       $(g.WORLD).append("<!-- ROW -->");
     }
 
     // delegate events
     $(g.WORLD).on("mouseenter mouseleave", ".g[highlight]", function () {
-      console.log("!");
+      //      console.log("!");
       $(this).css("color", "#dd68b0");
     });
 
-    $(g.WORLD).on("click", ".g[highlight]", function () {
+    $(g.WORLD).on("click", ".g[type='soil'][highlight]", function () {
       game.plant($(this), "flower", 1000);
     });
 
+    // things
+
+    // set store
+    $(".g[x=" + rng(0, 9) + "][y=" + rng(0, 9) + "]").attr("type", "store");
+    $(".g[x='2'][y='2']").attr("type", "store");
+
+    game.generateMapItems();
+
+
     console.log("!!");
+  },
+
+  generateMapItems: function () {
+
+    $("#h > div").each(function () {
+
+      const expr = $(this).attr("type");
+      console.log(expr);
+
+      switch (expr) {
+
+        case "store":
+
+          console.log("STORE");
+          $(this).text("/\\\n" + "[]\n");
+          break;
+
+      }
+
+    });
+
   },
 
   highlightMap: function (x, y) {
@@ -128,12 +136,10 @@ const game = {
 
     // object planted
     switch (what) {
-
       case "flower":
         stages = o.flower_growth.length;
         rand = pick(o.flower);
         break;
-
     }
 
     $thing
@@ -205,7 +211,14 @@ $(document).ready(function () {
   game.generateMap(g.GRID_X, g.GRID_Y);
   game.highlightMap(1, 1);
 
-  setInterval(game.loop, 2000);
+  setInterval(game.loop, g.MS_PER_HOUR);
+
+
+  // add tooltip
+  $(document).tooltip({
+    track: true,
+    tooltipClass: "tooltip"
+  });
 
   $d = $("#h");
 
@@ -231,6 +244,38 @@ jQuery.fn.scrollTo = function (elem) {
   $(this).scrollTop($(this).scrollTop() - $(this).offset().top + $(elem).offset().top);
   return this;
 };
+
+
+const map = {
+
+  checkLocation: function (x, y, event) {
+
+    const expr = $(g.WORLD " > .g[x=" + x + "][y=" + y + "]").attr("type");
+
+    // event = optional
+    switch (expr) {
+      case "soil":
+
+        break;
+
+      case "store":
+        console.log("STORE");
+        $(this).text("/\\\n" + "[]\n");
+        break;
+    }
+
+
+  },
+
+  enterStore: function () {
+
+
+
+  }
+
+}
+
+
 
 // moveveent
 document.body.onkeyup = function (e) {
@@ -282,7 +327,7 @@ document.body.onkeyup = function (e) {
 
 $("body").keyup(function (e) {
 
-
+  // till
   if (event.which !== 88) { // x
     return;
   }
@@ -294,6 +339,11 @@ $("body").keyup(function (e) {
   let y = $("#h .g[highlight]").attr("y");
   //  $("#h .g[x=" + $("#h .g[highlight]").attr("x") + "][y=" + $("#h .g[highlight]").attr("y") + "]");
   $tile = $("#h .g[x=" + x + "][y=" + y + "]");
+
+  if ($tile.attr("type") !== "soil") {
+    return false;
+    // invalid
+  }
 
 
   $("#h .g[highlight]").text("planting...");
