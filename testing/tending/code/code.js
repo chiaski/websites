@@ -248,28 +248,41 @@ jQuery.fn.scrollTo = function (elem) {
 
 const map = {
 
+  getXY: function (x, y) {
+    return $(g.WORLD + " > .g[x=" + x + "][y=" + y + "]");
+  },
+
+  getHighlighted: function () {
+    return $(g.WORLD + " > .g[highlight]");
+  },
+
   checkLocation: function (x, y, event) {
 
-    const expr = $(g.WORLD " > .g[x=" + x + "][y=" + y + "]").attr("type");
+    const expr = $(g.WORLD + " > .g[x=" + x + "][y=" + y + "]").attr("type");
+
+    map.enterLocation(expr);
+
+  },
+
+  enterLocation: function (loc) {
+
+    console.log("Entering" + loc);
 
     // event = optional
-    switch (expr) {
+    switch (loc) {
+
       case "soil":
 
         break;
 
       case "store":
-        console.log("STORE");
-        $(this).text("/\\\n" + "[]\n");
+        $("#store").fadeIn();
         break;
     }
-
 
   },
 
   enterStore: function () {
-
-
 
   }
 
@@ -294,6 +307,7 @@ document.body.onkeyup = function (e) {
   if (code !== 38 && code !== 87 && code !== 37 && code !== 65 && code !== 39 && code !== 68 && code !== 40 && code !== 83) {
     return;
   }
+
 
   if (code === 38 || code == 87) { // up/w
 
@@ -323,6 +337,19 @@ document.body.onkeyup = function (e) {
     c.scrollTop(top + walk);
     game.highlightMap(x, y + 1);
   }
+
+  let newBlock = map.getHighlighted();
+  x = newBlock.attr("x");
+  y = newBlock.attr("y");
+
+  // check location
+  if ((map.getXY(x, y)).attr("type") !== "soil") {
+
+    map.checkLocation(x, y);
+
+  }
+
+
 };
 
 $("body").keyup(function (e) {
