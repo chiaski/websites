@@ -111,6 +111,7 @@ const game = {
 
           console.log("STORE");
           $(this).text("/\\\n" + "[]\n");
+          $(this).attr("title", "shopping time");
           break;
 
       }
@@ -222,19 +223,7 @@ $(document).ready(function () {
 
   $d = $("#h");
 
-
-
-  //    $("#ocean").scrollLeft($("#ocean").offset().left + ($("#ocean").width() / 2));
-  //    $("#ocean").scrollTop($("#ocean").offset().top + ($("#ocean").height() / 2));
-
-
-
   $(".g[highlight]").focus();
-  //      $(this).scrollLeft(800);
-  //    });
-
-  //    $("#ocean").scrollTop(800);
-  //    $("#ocean").scrollLeft(500);
 
 });
 
@@ -248,6 +237,13 @@ jQuery.fn.scrollTo = function (elem) {
 
 const map = {
 
+  lastLoc: {
+    x: null,
+    y: null
+  },
+
+  lastLocType: null,
+
   getXY: function (x, y) {
     return $(g.WORLD + " > .g[x=" + x + "][y=" + y + "]");
   },
@@ -256,12 +252,17 @@ const map = {
     return $(g.WORLD + " > .g[highlight]");
   },
 
+  getLocationType: function (x, y) {
+    return $(g.WORLD + " > .g[x=" + x + "][y=" + y + "]").attr("type");
+  },
+
   checkLocation: function (x, y, event) {
 
     const expr = $(g.WORLD + " > .g[x=" + x + "][y=" + y + "]").attr("type");
 
     map.enterLocation(expr);
 
+    return expr;
   },
 
   enterLocation: function (loc) {
@@ -272,7 +273,7 @@ const map = {
     switch (loc) {
 
       case "soil":
-
+        $("#tools").nextAll("#you").fadeOut();
         break;
 
       case "store":
@@ -300,6 +301,10 @@ document.body.onkeyup = function (e) {
 
   let x = parseInt($("#h .g[highlight]").attr("x"));
   let y = parseInt($("#h .g[highlight]").attr("y"));
+
+  if (map.lastLocType == "soil" || map.lastLocType !== undefined) {
+    $("#tools > #you").nextAll().fadeOut();
+  }
 
   //    console.log(x, y);
   // find x div
@@ -340,15 +345,18 @@ document.body.onkeyup = function (e) {
 
   let newBlock = map.getHighlighted();
   x = newBlock.attr("x");
+  map.lastLoc.x = x;
   y = newBlock.attr("y");
+  map.lastLoc.y = y;
+
+  map.lastLocType = map.getLocationType(x, y);
 
   // check location
   if ((map.getXY(x, y)).attr("type") !== "soil") {
-
     map.checkLocation(x, y);
-
   }
 
+  console.log(">" + map.lastLocType);
 
 };
 
@@ -372,7 +380,7 @@ $("body").keyup(function (e) {
     // invalid
   }
 
-
+  map
   $("#h .g[highlight]").text("planting...");
 
   game.plant($tile, "flower", 1000);

@@ -47,6 +47,7 @@ body {
     background: $pink;
     border: 0;
     height: 1px;
+    margin: .25em 0;
   }
 
   h3,
@@ -199,7 +200,15 @@ body {
 
 
 
+
+
 // field 
 .g[highlight] {
   background: $pink-lighter;
+}
+
+$soil: rgba(221, 104, 176, 0.25);
+
+.g[type='soil'] {
+  background: $soil;
 }

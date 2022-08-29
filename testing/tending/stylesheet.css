@@ -39,6 +39,7 @@ body {
   background: #dd68b0;
   border: 0;
   height: 1px;
+  margin: 0.25em 0;
 }
 #tools h3,
 #tools p {
@@ -156,6 +157,10 @@ body {
 
 .g[highlight] {
   background: rgba(221, 104, 176, 0.48);
+}
+
+.g[type=soil] {
+  background: rgba(221, 104, 176, 0.25);
 }
 
 /*# sourceMappingURL=stylesheet.css.map */
