@@ -116,7 +116,6 @@ body {
   position: relative;
   border: 1px solid #dd68b0;
   display: inline-block;
-  padding: 1em;
   text-align: center;
   width: 125px;
   height: 125px;
@@ -131,10 +130,11 @@ body {
 #ocean .g:not(:empty) {
   cursor: pointer;
 }
+#ocean g:before {
+  position: absolute;
+}
 #ocean .g:after {
   font-size: 0.7rem;
-  top: 10%;
-  left: 10%;
   color: #dd68b0;
   position: absolute;
   content: counter(x) ", " counter(y);
@@ -155,12 +155,23 @@ body {
   margin-left: -1em;
 }
 
-.g[highlight] {
-  background: rgba(221, 104, 176, 0.48);
+.g[type=soil] {
+  background: rgba(221, 104, 176, 0.1);
 }
 
-.g[type=soil] {
-  background: rgba(221, 104, 176, 0.25);
+.g[type=unbought] {
+  background: rgba(80, 80, 80, 0.3);
+}
+
+.g[highlight]:before {
+  z-index: 3;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(221, 104, 176, 0.2);
+  content: "";
 }
 
 /*# sourceMappingURL=stylesheet.css.map */

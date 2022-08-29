@@ -146,7 +146,6 @@ body {
     position: relative;
     border: 1px solid $pink;
     display: inline-block;
-    padding: 1em;
     text-align: center;
     // SIZE
     width: 125px;
@@ -166,10 +165,12 @@ body {
     cursor: pointer;
   }
 
+  g:before {
+    position: absolute;
+  }
+
   .g:after {
     font-size: .7rem;
-    top: 10%;
-    left: 10%;
     color: $pink;
     position: absolute;
     content: counter(x) ", "counter(y);
@@ -203,12 +204,30 @@ body {
 
 
 // field 
-.g[highlight] {
-  background: $pink-lighter;
-}
 
-$soil: rgba(221, 104, 176, 0.25);
+$soil: rgba(221, 104, 176, 0.1);
+$unbought: rgba(80, 80, 80, 0.3);
 
 .g[type='soil'] {
   background: $soil;
+}
+
+.g[type='unbought'] {
+  background: $unbought;
+}
+
+
+.g[highlight] {
+  //  background: $pink-lighter;
+}
+
+.g[highlight]:before {
+  z-index: 3;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(221, 104, 176, 0.2);
+  content: "";
 }

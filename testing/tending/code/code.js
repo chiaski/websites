@@ -71,7 +71,13 @@ const game = {
     // create map
     for (let z = 0; z < b; z++) {
       for (let i = 0; i < a; i++) {
-        $(g.WORLD).append("<div class='g' x=" + i + " y=" + z + " title='x or click to plant' type='soil'></div>");
+
+        if (i <= g.STARTING_TILES && z <= g.STARTING_TILES) {
+          $(g.WORLD).append("<div class='g' x=" + i + " y=" + z + " title='click to plant' type='soil'></div>");
+        } else {
+          $(g.WORLD).append("<div class='g' x=" + i + " y=" + z + " title='land that is yet to be yours...' type='unbought'></div>");
+        }
+
       }
       $(g.WORLD).append("<!-- ROW -->");
     }
@@ -266,8 +272,6 @@ const map = {
   },
 
   enterLocation: function (loc) {
-
-    console.log("Entering" + loc);
 
     // event = optional
     switch (loc) {

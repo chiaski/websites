@@ -15,6 +15,7 @@ function rng(min, max) {
 const g = {
   MS_PER_HOUR: 3000, // 1 hour = how many ms
   HOUR: 500, // count per hour
+  STARTING_TILES: 3,
   WORLD: "#h",
   GRID_X: 10,
   GRID_Y: 10,
